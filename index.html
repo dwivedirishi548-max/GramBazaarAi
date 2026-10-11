@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GramBazaar | 100% Verified Real Village Produce</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        earth: {
+                            50: '#fdfbf7',
+                            100: '#f7f2e8',
+                            200: '#ebdcc5',
+                            600: '#966e38',
+                            800: '#52381b',
+                            900: '#33210d',
+                        },
+                        rural: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fdfbf7;
+            color: #2a2118;
+        }
+        .serif-title {
+            font-family: 'Merriweather', serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f7f2e8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .toast-slide {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-rural-100 selection:text-rural-900">
+
+    <!-- Top Verification Assurance Banner -->
+    <div class="bg-rural-900 text-amber-100 text-xs sm:text-sm py-2 px-4 shadow-inner">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center justify-center bg-rural-700 text-amber-300 rounded-full w-5 h-5 text-xs font-bold">
+                    <i class="fa-solid fa-camera font-bold"></i>
+                </span>
+                <span class="font-medium">100% Real Product Photo Policy: Every item photo is verified directly from rural farmers & artisans. No stock or AI photos.</span>
+            </div>
+            <button onclick="openPolicyModal()" class="underline hover:text-white transition-colors font-semibold text-xs flex items-center gap-1">
+                <i class="fa-solid fa-shield-halved"></i> Read Verification Policy
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="sticky top-0 z-30 bg-earth-50/95 backdrop-blur-md border-b border-earth-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 gap-4">
+                
+                <!-- Logo & Brand -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="resetFilters()">
+                    <div class="w-11 h-11 bg-rural-800 rounded-2xl flex items-center justify-center text-amber-300 shadow-md transform -rotate-2 hover:rotate-0 transition-transform">
+                        <i class="fa-solid fa-wheat-awn text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="serif-title text-2xl font-bold tracking-tight text-earth-900">GramBazaar</span>
+                            <span class="bg-rural-100 text-rural-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-rural-300 uppercase tracking-wider">Authentic</span>
+                        </div>
+                        <p class="text-xs text-earth-600 font-medium hidden sm:block">Directly from Rural Producers • Guaranteed Genuine Images</p>
+                    </div>
+                </div>
+
+                <!-- Search Input -->
+                <div class="flex-1 max-w-md hidden md:block">
+                    <div class="relative">
+                        <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Search authentic ghee, spices, grains..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-white border border-earth-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rural-700 focus:border-transparent shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-earth-600 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Seller Portal Button -->
+                    <button onclick="openAdminModal()" class="flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-semibold text-earth-800 bg-earth-100 hover:bg-earth-200 rounded-xl border border-earth-200 transition">
+                        <i class="fa-solid fa-store text-rural-700"></i>
+                        <span class="hidden sm:inline">Seller Portal</span>
+                    </button>
+
+                    <!-- Cart Trigger Button -->
+                    <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-rural-800 hover:bg-rural-900 text-white px-4 py-2.5 rounded-xl transition shadow-md hover:shadow-lg">
+                        <i class="fa-solid fa-basket-shopping text-amber-300"></i>
+                        <span class="font-bold text-sm hidden sm:inline">Cart</span>
+                        <span id="cartBadgeCount" class="bg-amber-400 text-rural-900 font-extrabold text-xs px-2 py-0.5 rounded-full min-w-[20px] text-center">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar (Below Header on Small Screens) -->
+            <div class="pb-3 md:hidden">
+                <div class="relative">
+                    <input type="text" id="mobileSearchInput" oninput="syncMobileSearch()" placeholder="Search authentic products..." 
+                        class="w-full pl-10 pr-4 py-2 bg-white border border-earth-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rural-700 shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-earth-600 text-sm"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Navigation & Filter Bar -->
+    <section class="bg-white border-b border-earth-200 sticky top-20 z-20 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-sm" id="categoryFilterContainer">
+                <!-- Dynamic categories injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <!-- Trust Banner Callout -->
+        <div class="bg-gradient-to-r from-earth-100 via-rural-50 to-amber-50 rounded-2xl p-5 sm:p-6 mb-8 border border-earth-200 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+            <div class="flex items-start gap-4">
+                <div class="p-3 bg-white rounded-xl text-rural-700 shadow-sm shrink-0 border border-earth-100">
+                    <i class="fa-solid fa-camera-retro text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="serif-title font-bold text-earth-900 text-lg">No AI. No Stock Photos. 100% Real Produce Visuals.</h2>
+                    <p class="text-xs sm:text-sm text-earth-800 mt-1">At GramBazaar, trust comes first. Every photograph shows the precise physical item, packaging, and quantity prepared by our rural producers. If a new batch photo isn't ready, we display a clear coming-soon badge instead of a misleading image.</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0 w-full md:w-auto">
+                <button onclick="openPolicyModal()" class="w-full md:w-auto px-4 py-2 bg-white hover:bg-earth-50 text-earth-900 font-semibold text-xs rounded-xl border border-earth-300 shadow-xs transition">
+                    Learn Verification Process
+                </button>
+            </div>
+        </div>
+
+        <!-- Store Catalog Grid Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+                <h1 class="serif-title text-2xl font-bold text-earth-900" id="catalogTitle">All Verified Products</h1>
+                <p class="text-xs text-earth-600 mt-0.5" id="productCountText">Showing all available items</p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <label for="filterVerifiedOnly" class="flex items-center gap-2 text-xs font-semibold text-earth-800 bg-white px-3 py-2 rounded-xl border border-earth-200 cursor-pointer hover:border-rural-500 transition shadow-xs select-none">
+                    <input type="checkbox" id="filterVerifiedOnly" onchange="filterProducts()" class="rounded text-rural-700 focus:ring-rural-600">
+                    <span><i class="fa-solid fa-circle-check text-rural-700"></i> Show Photo-Verified Only</span>
+                </label>
+
+                <select id="sortSelect" onchange="filterProducts()" class="text-xs font-semibold bg-white border border-earth-200 rounded-xl px-3 py-2 text-earth-800 focus:outline-none focus:ring-2 focus:ring-rural-700 shadow-xs">
+                    <option value="featured">Featured First</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Product cards will be dynamically rendered here -->
+        </div>
+
+        <!-- Empty State (Hidden by default) -->
+        <div id="emptyState" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-earth-300 my-6">
+            <div class="w-16 h-16 bg-earth-100 rounded-full flex items-center justify-center mx-auto mb-4 text-earth-600">
+                <i class="fa-solid fa-seedling text-2xl"></i>
+            </div>
+            <h3 class="serif-title font-bold text-earth-900 text-lg">No Products Found</h3>
+            <p class="text-xs text-earth-600 max-w-sm mx-auto mt-1 mb-4">No matching rural produce found with the selected criteria. Try adjusting your search term or category filters.</p>
+            <button onclick="resetFilters()" class="px-4 py-2 bg-rural-800 text-white rounded-xl font-semibold text-xs hover:bg-rural-900 transition">
+                Reset All Filters
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-earth-900 text-earth-100 border-t border-earth-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="space-y-3 md:col-span-1">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-amber-400 rounded-lg flex items-center justify-center text-rural-900 font-bold">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                        </div>
+                        <span class="serif-title text-xl font-bold text-amber-300">GramBazaar</span>
+                    </div>
+                    <p class="text-xs text-earth-200 leading-relaxed">
+                        Empowering rural artisans & farmers through authentic digital trade. Built on absolute trust, direct farmer payouts, and transparent real-product photography.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-amber-300 mb-3">Our Guarantees</h4>
+                    <ul class="text-xs space-y-2 text-earth-200">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rural-500"></i> Direct Rural Producer Payouts</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rural-500"></i> No AI/Stock Photograph Guarantee</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rural-500"></i> Accurate Weight & Quantity</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-rural-500"></i> WhatsApp Instant Order Confirmation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-amber-300 mb-3">Product Categories</h4>
+                    <ul class="text-xs space-y-2 text-earth-200">
+                        <li><a href="#" onclick="selectCategory('Pure Ghee & Oils'); return false;" class="hover:text-amber-300">Pure Ghee & Cold-Pressed Oils</a></li>
+                        <li><a href="#" onclick="selectCategory('Organic Pulses & Grains'); return false;" class="hover:text-amber-300">Organic Pulses & Native Grains</a></li>
+                        <li><a href="#" onclick="selectCategory('Handcrafted Spices'); return false;" class="hover:text-amber-300">Handcrafted Spices & Blends</a></li>
+                        <li><a href="#" onclick="selectCategory('Artisanal Goods'); return false;" class="hover:text-amber-300">Artisanal Jaggery & Snacks</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-amber-300 mb-3">Seller Verification</h4>
+                    <p class="text-xs text-earth-200 mb-3">Are you a rural producer wanting to showcase your real produce to urban homes?</p>
+                    <button onclick="openAdminModal()" class="w-full bg-amber-400 hover:bg-amber-300 text-rural-900 font-bold text-xs py-2 px-4 rounded-xl transition">
+                        <i class="fa-solid fa-plus-circle mr-1"></i> Add / Verify New Product
+                    </button>
+                </div>
+            </div>
+            <div class="border-t border-earth-800 mt-8 pt-6 text-center text-xs text-earth-200 flex flex-col sm:flex-row justify-between items-center gap-2">
+                <p>© GramBazaar Rural E-Commerce. All rights reserved.</p>
+                <p class="text-amber-200"><i class="fa-solid fa-shield text-rural-500"></i> Real Product Visual Accuracy Standard Applied</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: Product Image Lightbox & Verified Details Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all relative">
+            <button onclick="closeImageModal()" class="absolute top-4 right-4 bg-black/60 hover:bg-black text-white w-9 h-9 rounded-full flex items-center justify-center z-10 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="bg-earth-100 p-6 flex flex-col items-center justify-center relative min-h-[280px]">
+                    <img id="modalImg" src="" alt="" class="max-h-72 object-contain rounded-xl shadow-md">
+                    <div id="modalBadge" class="mt-3"></div>
+                </div>
+                <div class="p-6 flex flex-col justify-between">
+                    <div>
+                        <span id="modalCategory" class="text-xs font-extrabold uppercase tracking-wider text-rural-700 bg-rural-50 px-2.5 py-1 rounded-full border border-rural-200"></span>
+                        <h3 id="modalTitle" class="serif-title text-xl font-bold text-earth-900 mt-2"></h3>
+                        <p id="modalSeller" class="text-xs text-earth-600 mt-1 flex items-center gap-1">
+                            <i class="fa-solid fa-location-dot text-rural-700"></i> <span></span>
+                        </p>
+                        
+                        <div class="mt-4 p-3 bg-earth-50 rounded-xl border border-earth-200">
+                            <h4 class="text-xs font-bold text-earth-900 flex items-center gap-1.5 mb-1">
+                                <i class="fa-solid fa-circle-check text-rural-700"></i> Photo Transparency Verification
+                            </h4>
+                            <p id="modalPhotoNote" class="text-[11px] text-earth-800 leading-relaxed"></p>
+                        </div>
+
+                        <div class="mt-4">
+                            <span class="text-xs text-earth-600 block">Unit / Net Quantity:</span>
+                            <span id="modalUnit" class="font-bold text-sm text-earth-900"></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-earth-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-earth-600 block">Verified Price:</span>
+                            <span id="modalPrice" class="text-2xl font-bold text-rural-800"></span>
+                        </div>
+                        <button id="modalAddToCartBtn" class="bg-rural-800 hover:bg-rural-900 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md flex items-center gap-2 transition">
+                            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Transparency & Verification Policy Modal -->
+    <div id="policyModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closePolicyModal()" class="absolute top-5 right-5 text-earth-600 hover:text-earth-900 w-8 h-8 rounded-full bg-earth-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3 text-rural-800 mb-4">
+                <div class="w-10 h-10 bg-rural-100 rounded-xl flex items-center justify-center text-rural-800 text-xl font-bold">
+                    <i class="fa-solid fa-camera font-bold"></i>
+                </div>
+                <div>
+                    <h3 class="serif-title font-bold text-xl text-earth-900">Real Photo & Verification Policy</h3>
+                    <p class="text-xs text-earth-600">GramBazaar Product Representation Guarantee</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-xs text-earth-800 leading-relaxed border-t border-earth-100 pt-4">
+                <div class="p-3 bg-rural-50 rounded-xl border border-rural-200">
+                    <h4 class="font-bold text-rural-900 text-xs mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-check-double text-rural-700"></i> 1. Direct Physical Photographs
+                    </h4>
+                    <p>All product photographs are provided directly by village producers or taken during batch harvesting. We strictly prohibit stock images, AI generative renders, or retouched representations.</p>
+                </div>
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
+                    <h4 class="font-bold text-amber-900 text-xs mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-amber-700"></i> 2. Honest "Photo Coming Soon" Standard
+                    </h4>
+                    <p>If a new harvest batch or product is uploaded without a verified seller photo, we display a clear placeholder. We will NEVER use a random online image to substitute the actual item.</p>
+                </div>
+                <div class="p-3 bg-earth-50 rounded-xl border border-earth-200">
+                    <h4 class="font-bold text-earth-900 text-xs mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-box text-earth-700"></i> 3. Accurate Packaging & Weight Match
+                    </h4>
+                    <p>What you see is what you receive. The brand label, packaging container type (glass jar, cloth pouch, tin), and quantity displayed in the photo reflect physical store inventory.</p>
+                </div>
+            </div>
+            <button onclick="closePolicyModal()" class="mt-6 w-full bg-rural-800 hover:bg-rural-900 text-white font-bold py-3 rounded-xl text-xs transition">
+                I Understand & Agree
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Admin / Seller Product & Photo Upload Portal -->
+    <div id="adminModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-5 right-5 text-earth-600 hover:text-earth-900 w-8 h-8 rounded-full bg-earth-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-earth-100 text-earth-800 rounded-xl flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div>
+                    <h3 class="serif-title font-bold text-xl text-earth-900">Seller / Admin Portal</h3>
+                    <p class="text-xs text-earth-600">Add or Update Product with Verified Photography</p>
+                </div>
+            </div>
+
+            <form id="addProductForm" onsubmit="handleProductSubmit(event)" class="space-y-4 border-t border-earth-100 pt-4">
+                <div>
+                    <label class="block text-xs font-bold text-earth-800 mb-1">Product Name *</label>
+                    <input type="text" id="adminName" required placeholder="e.g., A2 Desi Gir Cow Ghee" class="w-full px-3 py-2 text-xs border border-earth-300 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-earth-800 mb-1">Category *</label>
+                        <select id="adminCategory" required class="w-full px-3 py-2 text-xs border border-earth-300 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none bg-white">
+                            <option value="Pure Ghee & Oils">Pure Ghee & Oils</option>
+                            <option value="Organic Pulses & Grains">Organic Pulses & Grains</option>
+                            <option value="Handcrafted Spices">Handcrafted Spices</option>
+                            <option value="Fresh Farm Produce">Fresh Farm Produce</option>
+                            <option value="Artisanal Goods">Artisanal Goods</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-earth-800 mb-1">Seller / Village Source *</label>
+                        <input type="text" id="adminSeller" required placeholder="e.g., Anand Farmers Co-op, Gujarat" class="w-full px-3 py-2 text-xs border border-earth-300 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-earth-800 mb-1">Price (₹) *</label>
+                        <input type="number" id="adminPrice" required min="1" placeholder="850" class="w-full px-3 py-2 text-xs border border-earth-300 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-earth-800 mb-1">Unit / Weight *</label>
+                        <input type="text" id="adminUnit" required placeholder="e.g., 500 ml Glass Jar" class="w-full px-3 py-2 text-xs border border-earth-300 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none">
+                    </div>
+                </div>
+
+                <!-- Product Photo Upload Section -->
+                <div class="bg-earth-50 p-4 rounded-2xl border border-earth-200">
+                    <label class="block text-xs font-bold text-earth-900 mb-2 flex items-center justify-between">
+                        <span><i class="fa-solid fa-camera text-rural-700"></i> Real Product Photo Upload</span>
+                        <span class="text-[10px] text-earth-600 font-normal">File upload or URL</span>
+                    </label>
+
+                    <div class="space-y-2">
+                        <input type="file" id="adminImageFile" accept="image/*" onchange="handleFileSelect(event)" class="w-full text-xs text-earth-700 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-rural-800 file:text-white hover:file:bg-rural-900 cursor-pointer">
+                        <div class="text-center text-[10px] text-earth-600 font-bold uppercase tracking-wider">— OR —</div>
+                        <input type="url" id="adminImageUrl" placeholder="Paste verified direct photo URL..." class="w-full px-3 py-2 text-xs border border-earth-300 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none bg-white">
+                    </div>
+
+                    <!-- Photo Verification Mandatory Checkbox -->
+                    <div class="mt-3 bg-white p-3 rounded-xl border border-earth-200">
+                        <label class="flex items-start gap-2.5 cursor-pointer">
+                            <input type="checkbox" id="adminVerifiedConfirm" class="mt-0.5 rounded text-rural-700 focus:ring-rural-600">
+                            <span class="text-[11px] text-earth-800 font-medium">
+                                <strong class="text-rural-900 block font-bold">Verification Pledge:</strong>
+                                I confirm this is a real photograph of the physical product, packaging, and quantity supplied by the seller.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex gap-3">
+                    <button type="button" onclick="closeAdminModal()" class="w-1/2 py-2.5 bg-earth-100 hover:bg-earth-200 text-earth-800 rounded-xl font-bold text-xs transition">
+                        Cancel
+                    </button>
+                    <button type="submit" class="w-1/2 py-2.5 bg-rural-800 hover:bg-rural-900 text-white rounded-xl font-bold text-xs transition shadow-md">
+                        Publish Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SLIDE-OVER DRAWER: Shopping Cart & WhatsApp Order Generator -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden transition-opacity" onclick="toggleCartDrawer(false)"></div>
+    
+    <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Cart Drawer Header -->
+        <div class="p-4 sm:p-5 bg-earth-50 border-b border-earth-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-basket-shopping text-rural-800 text-xl"></i>
+                <h3 class="serif-title font-bold text-lg text-earth-900">Your Basket</h3>
+                <span id="cartDrawerCount" class="bg-rural-100 text-rural-800 font-extrabold text-xs px-2.5 py-0.5 rounded-full border border-rural-300">0 items</span>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="text-earth-600 hover:text-earth-900 w-8 h-8 rounded-full bg-white flex items-center justify-center border border-earth-200">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List Container -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4" id="cartItemsContainer">
+            <!-- Dynamic Cart Items Injected Here -->
+        </div>
+
+        <!-- Cart Footer & Checkout Form -->
+        <div id="cartFooter" class="p-4 sm:p-5 bg-earth-50 border-t border-earth-200 space-y-3">
+            <div class="space-y-1.5 text-xs text-earth-800">
+                <div class="flex justify-between">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal" class="font-bold text-earth-900">₹0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Direct Rural Delivery Fee</span>
+                    <span class="text-rural-700 font-semibold">FREE / Standard</span>
+                </div>
+                <div class="flex justify-between text-sm font-bold text-earth-900 pt-2 border-t border-earth-200">
+                    <span>Total Amount</span>
+                    <span id="cartTotal" class="text-lg text-rural-800">₹0</span>
+                </div>
+            </div>
+
+            <!-- Customer Details Inputs for Order -->
+            <div class="bg-white p-3 rounded-2xl border border-earth-200 space-y-2 mt-3">
+                <h4 class="text-xs font-bold text-earth-900 flex items-center gap-1.5">
+                    <i class="fa-solid fa-truck-ramp-box text-rural-700"></i> Delivery Information
+                </h4>
+                <input type="text" id="custName" placeholder="Your Full Name *" class="w-full text-xs px-3 py-2 border border-earth-200 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none">
+                <input type="tel" id="custPhone" placeholder="Mobile Number *" class="w-full text-xs px-3 py-2 border border-earth-200 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none">
+                <textarea id="custAddress" rows="2" placeholder="Full Delivery Address & Pincode *" class="w-full text-xs px-3 py-2 border border-earth-200 rounded-xl focus:ring-2 focus:ring-rural-700 outline-none resize-none"></textarea>
+            </div>
+
+            <!-- WhatsApp Direct Order Button -->
+            <button onclick="sendWhatsAppOrder()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg transition text-xs sm:text-sm">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span>Confirm Order via WhatsApp</span>
+            </button>
+            
+            <p class="text-[10px] text-center text-earth-600 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-shield text-rural-700"></i> Includes verified photo guarantee in order dispatch receipt
+            </p>
+        </div>
+    </aside>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Default Verified Rural Products Data Store
+        const INITIAL_PRODUCTS = [
+            {
+                id: 'gb-101',
+                name: 'A2 Desi Gir Cow Vedic Bilona Ghee',
+                category: 'Pure Ghee & Oils',
+                seller: 'Anand Organic Milk Farmers, Anand, Gujarat',
+                price: 890,
+                unit: '500 ml Glass Jar',
+                image: 'https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?auto=format&fit=crop&w=600&q=80',
+                isVerified: true,
+                photoNote: 'Hand-churned wooden bilona Ghee batch captured at farm packaging center. Shows exact golden tone and glass jar container supplied.'
+            },
+            {
+                id: 'gb-102',
+                name: 'Organic Unpolished Arhar/Toor Dal',
+                category: 'Organic Pulses & Grains',
+                seller: 'Narmada Valley Farmers Collective, MP',
+                price: 180,
+                unit: '1 kg Eco Cotton Bag',
+                image: 'https://images.unsplash.com/photo-1585992629288-80126c52558a?auto=format&fit=crop&w=600&q=80',
+                isVerified: true,
+                photoNote: 'Sun-dried unpolished pulses photograph provided by village farmer group. No artificial color polish added.'
+            },
+            {
+                id: 'gb-103',
+                name: 'Cold-Pressed Wood Churned Mustard Oil',
+                category: 'Pure Ghee & Oils',
+                seller: 'Bharatpur Mustard Guild, Rajasthan',
+                price: 240,
+                unit: '1 Litre Glass Bottle',
+                image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80',
+                isVerified: true,
+                photoNote: 'Fresh kacchi ghani extraction photograph taken directly at the traditional wooden press facility.'
+            },
+            {
+                id: 'gb-104',
+                name: 'Hand-Pounded Lakadong Turmeric Powder',
+                category: 'Handcrafted Spices',
+                seller: 'Jaintia Hills Women Co-op, Meghalaya',
+                price: 320,
+                unit: '250g Glass Container',
+                image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80',
+                isVerified: true,
+                photoNote: 'High-curcumin turmeric powder photographed after mortar pounding by village artisans.'
+            },
+            {
+                id: 'gb-105',
+                name: 'Wild Multiflora Raw Forest Honey',
+                category: 'Artisanal Goods',
+                seller: 'Sundarbans Forest Gatherers, West Bengal',
+                price: 450,
+                unit: '500g Glass Jar',
+                image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=600&q=80',
+                isVerified: true,
+                photoNote: 'Unfiltered raw honey batch direct photograph showing natural crystallization sediment.'
+            },
+            {
+                id: 'gb-106',
+                name: 'Handcrafted Organic Sugarcane Jaggery (Gur)',
+                category: 'Artisanal Goods',
+                seller: 'Kolhapur Traditional Gur Making Unit, Maharashtra',
+                price: 130,
+                unit: '1 kg Block',
+                image: '', // Intentionally empty to showcase "Photo Coming Soon" standard
+                isVerified: false,
+                photoNote: 'New seasonal boil batch in progress. Temporary placeholder displayed per GramBazaar transparency policy until real farm photo is uploaded.'
+            },
+            {
+                id: 'gb-107',
+                name: 'Stone-Ground Whole Wheat Sharbati Atta',
+                category: 'Organic Pulses & Grains',
+                seller: 'Sehore Organic Wheat Producers, Madhya Pradesh',
+                price: 290,
+                unit: '5 kg Jute Bag',
+                image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80',
+                isVerified: true,
+                photoNote: 'Traditional stone-milled wheat flour packaged in natural jute sack as depicted.'
+            },
+            {
+                id: 'gb-108',
+                name: 'Sun-Dried Mathania Whole Red Chillies',
+                category: 'Handcrafted Spices',
+                seller: 'Mathania Spice Growers, Rajasthan',
+                price: 210,
+                unit: '200g Pouch',
+                image: 'https://images.unsplash.com/photo-1583845112239-97ef1341b271?auto=format&fit=crop&w=600&q=80',
+                isVerified: true,
+                photoNote: 'Authentic Mathania chilli photo verified from dry yard harvest.'
+            }
+        ];
+
+        // State Management
+        let products = [...INITIAL_PRODUCTS];
+        let cart = {};
+        let activeCategory = 'All';
+        let currentUploadedImageBase64 = null;
+
+        // Fallback Placeholder URL for "Photo Coming Soon"
+        const COMING_SOON_PLACEHOLDER = "https://placehold.co/600x600/f7f2e8/52381b?text=Real+Product+Photo%0AComing+Soon";
+
+        // Initialize Store on Window Load
+        window.onload = function() {
+            renderCategories();
+            renderProducts();
+            updateCartUI();
+        };
+
+        // Render Categories Bar
+        function renderCategories() {
+            const categories = ['All', 'Pure Ghee & Oils', 'Organic Pulses & Grains', 'Handcrafted Spices', 'Fresh Farm Produce', 'Artisanal Goods'];
+            const container = document.getElementById('categoryFilterContainer');
+            
+            container.innerHTML = categories.map(cat => {
+                const isActive = cat === activeCategory;
+                return `
+                    <button onclick="selectCategory('${cat}')" 
+                        class="px-4 py-2 rounded-xl font-semibold whitespace-nowrap text-xs transition border ${
+                            isActive 
+                            ? 'bg-rural-800 text-white border-rural-800 shadow-sm' 
+                            : 'bg-earth-100 text-earth-800 border-earth-200 hover:bg-earth-200'
+                        }">
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Select Category Filter
+        function selectCategory(category) {
+            activeCategory = category;
+            renderCategories();
+            filterProducts();
+        }
+
+        // Reset All Search & Category Filters
+        function resetFilters() {
+            activeCategory = 'All';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('mobileSearchInput').value = '';
+            document.getElementById('filterVerifiedOnly').checked = false;
+            document.getElementById('sortSelect').value = 'featured';
+            renderCategories();
+            filterProducts();
+        }
+
+        // Sync Search Inputs across Desktop and Mobile
+        function syncMobileSearch() {
+            const val = document.getElementById('mobileSearchInput').value;
+            document.getElementById('searchInput').value = val;
+            filterProducts();
+        }
+
+        // Filter and Render Products Grid
+        function filterProducts() {
+            const searchTerm = (document.getElementById('searchInput').value || '').toLowerCase();
+            const verifiedOnly = document.getElementById('filterVerifiedOnly').checked;
+            const sortBy = document.getElementById('sortSelect').value;
+
+            let filtered = products.filter(p => {
+                const matchesCategory = activeCategory === 'All' || p.category === activeCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchTerm) || 
+                                      p.seller.toLowerCase().includes(searchTerm) ||
+                                      p.category.toLowerCase().includes(searchTerm);
+                const matchesVerified = !verifiedOnly || p.isVerified;
+                
+                return matchesCategory && matchesSearch && matchesVerified;
+            });
+
+            // Sorting Logic
+            if (sortBy === 'low-high') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'high-low') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            // Update UI Labels
+            document.getElementById('catalogTitle').innerText = activeCategory === 'All' ? 'All Verified Produce' : activeCategory;
+            document.getElementById('productCountText').innerText = `Showing ${filtered.length} authentic rural item${filtered.length !== 1 ? 's' : ''}`;
+
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(product => {
+                const imgUrl = product.isVerified && product.image ? product.image : COMING_SOON_PLACEHOLDER;
+                const qtyInCart = cart[product.id]?.quantity || 0;
+
+                return `
+                    <div class="bg-white rounded-2xl border border-earth-200 overflow-hidden shadow-xs hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                        
+                        <!-- Product Image Box with Click to Lightbox -->
+                        <div class="relative bg-earth-100 overflow-hidden cursor-pointer aspect-square flex items-center justify-center p-4" onclick="openImageModal('${product.id}')">
+                            <img src="${imgUrl}" alt="${product.name}" 
+                                class="object-contain max-h-full max-w-full group-hover:scale-105 transition duration-300"
+                                onerror="this.onerror=null; this.src='${COMING_SOON_PLACEHOLDER}';">
+
+                            <!-- Verification Status Badge -->
+                            <div class="absolute top-3 left-3 right-3 flex justify-between items-start pointer-events-none">
+                                ${product.isVerified ? `
+                                    <span class="bg-rural-800/90 backdrop-blur-xs text-amber-300 text-[10px] font-extrabold px-2.5 py-1 rounded-full border border-rural-700/50 flex items-center gap-1 shadow-xs">
+                                        <i class="fa-solid fa-circle-check text-rural-500"></i> Verified Real Photo
+                                    </span>
+                                ` : `
+                                    <span class="bg-amber-800/90 backdrop-blur-xs text-amber-100 text-[10px] font-extrabold px-2.5 py-1 rounded-full border border-amber-600/50 flex items-center gap-1 shadow-xs">
+                                        <i class="fa-solid fa-clock"></i> Photo Coming Soon
+                                    </span>
+                                `}
+                            </div>
+
+                            <!-- Tap to Enlarge Indicator Overlay -->
+                            <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition flex items-center gap-1">
+                                <i class="fa-solid fa-expand"></i> Tap to Enlarge
+                            </div>
+                        </div>
+
+                        <!-- Product Content Info -->
+                        <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                <span class="text-[10px] font-extrabold text-rural-700 bg-rural-50 px-2 py-0.5 rounded-md border border-rural-200 uppercase tracking-wider">
+                                    ${product.category}
+                                </span>
+                                <h3 class="serif-title font-bold text-earth-900 text-sm mt-1.5 leading-snug line-clamp-2" title="${product.name}">
+                                    ${product.name}
+                                </h3>
+                                <p class="text-[11px] text-earth-600 mt-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-location-dot text-rural-700"></i> ${product.seller}
+                                </p>
+                                <p class="text-[11px] text-earth-600 font-semibold mt-0.5">
+                                    Unit: <span class="text-earth-900">${product.unit}</span>
+                                </p>
+                            </div>
+
+                            <!-- Price & Quantity Selector / Add to Cart Button -->
+                            <div class="pt-3 border-t border-earth-100 flex items-center justify-between gap-2">
+                                <div>
+                                    <span class="text-xs text-earth-600 block leading-none">Price</span>
+                                    <span class="text-lg font-extrabold text-rural-900">₹${product.price}</span>
+                                </div>
+
+                                ${qtyInCart > 0 ? `
+                                    <div class="flex items-center bg-earth-100 border border-earth-300 rounded-xl overflow-hidden">
+                                        <button onclick="updateCartQuantity('${product.id}', -1)" class="w-8 h-8 flex items-center justify-center font-bold text-earth-800 hover:bg-earth-200 text-xs">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </button>
+                                        <span class="px-2.5 font-bold text-xs text-earth-900">${qtyInCart}</span>
+                                        <button onclick="updateCartQuantity('${product.id}', 1)" class="w-8 h-8 flex items-center justify-center font-bold text-earth-800 hover:bg-earth-200 text-xs">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+                                    </div>
+                                ` : `
+                                    <button onclick="addToCart('${product.id}')" class="bg-rural-800 hover:bg-rural-900 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5">
+                                        <i class="fa-solid fa-cart-plus"></i> Add
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Add Item to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            if (cart[productId]) {
+                cart[productId].quantity += 1;
+            } else {
+                cart[productId] = {
+                    product: product,
+                    quantity: 1
+                };
+            }
+
+            showToast(`Added ${product.name} to basket`);
+            updateCartUI();
+            renderProducts();
+        }
+
+        // Update Cart Item Quantity
+        function updateCartQuantity(productId, delta) {
+            if (!cart[productId]) return;
+
+            cart[productId].quantity += delta;
+            if (cart[productId].quantity <= 0) {
+                delete cart[productId];
+            }
+
+            updateCartUI();
+            renderProducts();
+        }
+
+        // Remove Item Completely from Cart
+        function removeFromCart(productId) {
+            if (cart[productId]) {
+                delete cart[productId];
+                updateCartUI();
+                renderProducts();
+            }
+        }
+
+        // Update Cart Drawer & Badges UI
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartFooter = document.getElementById('cartFooter');
+            
+            const items = Object.values(cart);
+            const totalItemsCount = items.reduce((acc, item) => acc + item.quantity, 0);
+            const subtotal = items.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+
+            // Update Header Badges
+            document.getElementById('cartBadgeCount').innerText = totalItemsCount;
+            document.getElementById('cartDrawerCount').innerText = `${totalItemsCount} item${totalItemsCount !== 1 ? 's' : ''}`;
+
+            if (items.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-16 h-16 bg-earth-100 rounded-full flex items-center justify-center mx-auto mb-3 text-earth-600">
+                            <i class="fa-solid fa-basket-shopping text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-earth-900 text-sm">Your Basket is Empty</h4>
+                        <p class="text-xs text-earth-600 mt-1 max-w-xs mx-auto">Explore our collection of authentic rural produce and support local village farmers.</p>
+                    </div>
+                `;
+                cartFooter.classList.add('hidden');
+                return;
+            }
+
+            cartFooter.classList.remove('hidden');
+
+            cartItemsContainer.innerHTML = items.map(item => {
+                const p = item.product;
+                const imgUrl = p.isVerified && p.image ? p.image : COMING_SOON_PLACEHOLDER;
+
+                return `
+                    <div class="flex items-center gap-3 p-3 bg-earth-50 rounded-2xl border border-earth-200">
+                        <img src="${imgUrl}" alt="${p.name}" class="w-14 h-14 object-contain rounded-xl bg-white p-1 border border-earth-200 shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-xs text-earth-900 truncate">${p.name}</h4>
+                            <p class="text-[10px] text-earth-600">${p.unit} • ₹${p.price} each</p>
+                            <p class="text-[10px] text-rural-700 font-semibold mt-0.5 flex items-center gap-1">
+                                <i class="fa-solid fa-shield text-[9px]"></i> ${p.isVerified ? 'Verified Real Photo' : 'Photo Pending'}
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-end gap-1 shrink-0">
+                            <span class="font-bold text-xs text-earth-900">₹${p.price * item.quantity}</span>
+                            <div class="flex items-center bg-white border border-earth-300 rounded-lg overflow-hidden">
+                                <button onclick="updateCartQuantity('${p.id}', -1)" class="w-6 h-6 flex items-center justify-center text-xs hover:bg-earth-100 font-bold">
+                                    <i class="fa-solid fa-minus text-[10px]"></i>
+                                </button>
+                                <span class="px-1.5 text-xs font-bold text-earth-900">${item.quantity}</span>
+                                <button onclick="updateCartQuantity('${p.id}', 1)" class="w-6 h-6 flex items-center justify-center text-xs hover:bg-earth-100 font-bold">
+                                    <i class="fa-solid fa-plus text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartSubtotal').innerText = `₹${subtotal}`;
+            document.getElementById('cartTotal').innerText = `₹${subtotal}`;
+        }
+
+        // Open/Close Sliding Cart Drawer
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+
+            if (open) {
+                overlay.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Construct & Trigger WhatsApp Order Message
+        function sendWhatsAppOrder() {
+            const items = Object.values(cart);
+            if (items.length === 0) {
+                alert('Your shopping basket is empty.');
+                return;
+            }
+
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+
+            if (!name || !phone || !address) {
+                alert('Please fill in your Name, Phone Number, and Delivery Address before ordering.');
+                return;
+            }
+
+            let subtotal = 0;
+            let itemLines = items.map((item, index) => {
+                const itemTotal = item.product.price * item.quantity;
+                subtotal += itemTotal;
+                return `${index + 1}. *${item.product.name}*\n   - Unit/Qty: ${item.product.unit} x ${item.quantity}\n   - Verification: ${item.product.isVerified ? '✅ Verified Real Photo' : '⏳ Photo Pending'}\n   - Item Total: ₹${itemTotal}`;
+            }).join('\n\n');
+
+            const orderMessage = `*🌾 GRAMBAZAAR RURAL ORDER REQUEST 🌾*\n` +
+                `----------------------------------------\n` +
+                `*Customer Details:*\n` +
+                `• *Name:* ${name}\n` +
+                `• *Phone:* ${phone}\n` +
+                `• *Address:* ${address}\n\n` +
+                `*Selected Verified Produce Items:*\n\n${itemLines}\n\n` +
+                `----------------------------------------\n` +
+                `*ORDER TOTAL:* ₹${subtotal}\n` +
+                `----------------------------------------\n` +
+                `*Transparency Guarantee:* All ordered items match verified seller photographs and physical stock quantity standards.\n\n` +
+                `Please confirm dispatch schedule and payment instructions.`;
+
+            const encodedMessage = encodeURIComponent(orderMessage);
+            // Replace with GramBazaar store phone number (using demo placeholder)
+            const whatsappUrl = `https://wa.me/919876543210?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Open Product Lightbox Modal
+        function openImageModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modalImg = document.getElementById('modalImg');
+            const modalBadge = document.getElementById('modalBadge');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalSeller = document.getElementById('modalSeller');
+            const modalPhotoNote = document.getElementById('modalPhotoNote');
+            const modalUnit = document.getElementById('modalUnit');
+            const modalPrice = document.getElementById('modalPrice');
+            const modalAddToCartBtn = document.getElementById('modalAddToCartBtn');
+
+            const imgUrl = product.isVerified && product.image ? product.image : COMING_SOON_PLACEHOLDER;
+
+            modalImg.src = imgUrl;
+            modalTitle.innerText = product.name;
+            modalCategory.innerText = product.category;
+            modalSeller.querySelector('span').innerText = product.seller;
+            modalPhotoNote.innerText = product.photoNote || 'Verified physical sample photograph provided directly by the producer.';
+            modalUnit.innerText = product.unit;
+            modalPrice.innerText = `₹${product.price}`;
+
+            if (product.isVerified) {
+                modalBadge.innerHTML = `
+                    <span class="bg-rural-800 text-amber-300 text-xs font-extrabold px-3 py-1 rounded-full border border-rural-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check text-rural-500"></i> Verified Real Photo (No Stock/AI)
+                    </span>
+                `;
+            } else {
+                modalBadge.innerHTML = `
+                    <span class="bg-amber-800 text-amber-100 text-xs font-extrabold px-3 py-1 rounded-full border border-amber-600 flex items-center gap-1.5">
+                        <i class="fa-solid fa-clock"></i> Photo Coming Soon Standard
+                    </span>
+                `;
+            }
+
+            modalAddToCartBtn.onclick = function() {
+                addToCart(product.id);
+                closeImageModal();
+            };
+
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+        }
+
+        // Open/Close Transparency Policy Modal
+        function openPolicyModal() {
+            document.getElementById('policyModal').classList.remove('hidden');
+        }
+        function closePolicyModal() {
+            document.getElementById('policyModal').classList.add('hidden');
+        }
+
+        // Open/Close Admin / Seller Modal
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            document.getElementById('addProductForm').reset();
+            currentUploadedImageBase64 = null;
+        }
+
+        // Handle File Upload Conversion via FileReader
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentUploadedImageBase64 = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Handle Adding New Product from Admin Form
+        function handleProductSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('adminName').value.trim();
+            const category = document.getElementById('adminCategory').value;
+            const seller = document.getElementById('adminSeller').value.trim();
+            const price = parseFloat(document.getElementById('adminPrice').value);
+            const unit = document.getElementById('adminUnit').value.trim();
+            const imageUrl = document.getElementById('adminImageUrl').value.trim();
+            const isVerifiedChecked = document.getElementById('adminVerifiedConfirm').checked;
+
+            let finalImage = currentUploadedImageBase64 || imageUrl;
+
+            if (isVerifiedChecked && !finalImage) {
+                alert('Please upload an image file or provide a photo URL to mark as Verified Real Photo.');
+                return;
+            }
+
+            const newProduct = {
+                id: 'gb-' + Date.now(),
+                name: name,
+                category: category,
+                seller: seller,
+                price: price,
+                unit: unit,
+                image: finalImage || '',
+                isVerified: isVerifiedChecked && Boolean(finalImage),
+                photoNote: isVerifiedChecked ? 'Seller-verified photograph submitted via GramBazaar Seller Dashboard.' : 'Photo coming soon per transparency standard.'
+            };
+
+            products.unshift(newProduct);
+            renderProducts();
+            closeAdminModal();
+            showToast(`Product "${name}" successfully published!`);
+        }
+
+        // Toast Notification Helper
+        function showToast(message) {
+            const existing = document.getElementById('toastNotification');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.id = 'toastNotification';
+            toast.className = 'fixed bottom-5 right-5 bg-earth-900 text-white px-4 py-3 rounded-2xl shadow-xl z-50 flex items-center gap-2 text-xs font-semibold toast-slide border border-earth-700';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-rural-500"></i> ${message}`;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast) toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+      </html>
